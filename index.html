@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $("#insert").click(function() {
+            var id_informasi = $("#id_informasi").val();
+			var tanggal = $("#tanggal").val();
+            var perihal = $("#perihal").val();
+            var no_surat = $("#no_surat").val();
+			var kategori = $("#kategori").val();
+				var deskripsi = $("#deskripsi").val();
+            var penanggung_jawab = $("#penanggung_jawab").val();
+            var id_informasi = $("#id_informasi").val();
+            var dataString = "taggal=" + tanggal + "&perihal=" + perihal +
+				"&no_surat=" + no_surat +
+				"&kategori=" + kategori +
+				"&deskripsi=" + deskripsi +"&penanggung_jawab=" + penanggung_jawab + "&insert=";
+            if ($.trim(id_informasi.length > 0 & $.trim(tanggal).length > 0 & $.trim(perihal).length > 0) &
+			$.trim(no_surat).length > 0 & $.trim(kategori).length > 0 & $.trim(deskripsi).length > 0 &
+			$.trim(penanggung_jawab).length > 0){
+                $.ajax({
+                    type: "POST",
+                    url: "https://www.pkl.alenxi.id/api/api/administrasi/Sv_informasi",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Connecting...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("inserted");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <h1 class="title">Insert Database</h1>
+        <a class="button button-clear" href="readjson.html">Read JSON</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>id_informasi</label>
+            <input type="text" id="id_informasi" value="" />
+        </div>
+        <div class="item">
+            <label>tanggal</label>
+            <input type="text" id="tanggal" value="" />
+        </div>
+        <div class="item">
+            <label>perihal</label>
+            <input type="text" id="perihal" value="" />
+        </div>
+		<div class="item">
+            <label>kategori</label>
+            <input type="text" id="kategori" value="" />
+        </div>
+		<div class="item">
+            <label>deskripsi</label>
+            <input type="text" id="deskripsi" value="" />
+        </div>
+		<div class="item">
+            <label>penangggung_jawab</label>
+            <input type="text" id="penanggung_jawab" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Insert" />
+        </div>
+    </div>
+</body>
+
+</html>
